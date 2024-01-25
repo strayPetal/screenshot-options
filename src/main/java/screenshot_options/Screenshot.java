@@ -15,16 +15,24 @@ import static screenshot_options.ScreenshotOptionsMod.LOGGER;
 public class Screenshot {
     public final NativeImage image;
     
-    public Path fileLocation;
+    private Path fileLocation;
     
     public Screenshot(NativeImage image) {
         this.image = image;
     }
     
+    public Path getFileLocation() {
+        return fileLocation;
+    }
+    
+    private void setFileLocation(Path location) {
+        fileLocation = location.toAbsolutePath();
+    }
+    
     public void saveTo(Path destination) {
         try (image) {
             image.writeFile(destination);
-            fileLocation = destination;
+            setFileLocation(fileLocation);
         } catch (Exception e) {
             LOGGER.error("An error occurred while trying to save the image.", e);
         }
@@ -39,6 +47,7 @@ public class Screenshot {
                 LOGGER.error("Rename error: file does not exist!");
             }
             Files.move(fileLocation, destination);
+            setFileLocation(fileLocation);
         } catch (Exception e) {
             LOGGER.error("An error occurred while renaming the file.", e);
         }
