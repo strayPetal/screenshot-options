@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "${description}",
+  "authors": ["${author}"],
+  "icon": "assets/screenshot_options/icon.png",
+  "environment": "client",
+  "license": "MIT",
+  "contact": {
+    "homepage": "https://github.com/strayPetal/screenshot-options",
+    "sources": "https://github.com/strayPetal/screenshot-options",
+    "issues": "https://github.com/strayPetal/screenshot-options/issues"
+  },
+  "entrypoints": {
+    "client": ["screenshot_options.ScreenshotOptionsMod::init"]
+  },
+  "mixins": ["screenshot_options.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.15.6",
+    "minecraft": "${minecraft_dependency}"
+  }
+}
