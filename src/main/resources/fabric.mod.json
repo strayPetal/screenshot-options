@@ -7,7 +7,7 @@
   "authors": ["${author}"],
   "icon": "assets/screenshot_options/icon.png",
   "environment": "client",
-  "license": "MIT",
+  "license": "LGPL-3.0-only",
   "contact": {
     "homepage": "https://github.com/strayPetal/screenshot-options",
     "sources": "https://github.com/strayPetal/screenshot-options",
