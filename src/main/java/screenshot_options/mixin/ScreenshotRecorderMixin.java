@@ -9,7 +9,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import screenshot_options.Screenshot;
+import screenshot_options.ScreenshotOptionsMod;
 
 import java.io.File;
 import java.util.function.Consumer;
@@ -17,10 +18,12 @@ import java.util.function.Consumer;
 @Mixin(ScreenshotRecorder.class)
 public abstract class ScreenshotRecorderMixin {
     @Inject(method = "saveScreenshotInner",
-            at = @At(value = "INVOKE", target = "Ljava/io/File;mkdir()Z", shift = At.Shift.AFTER),
-            locals = LocalCapture.CAPTURE_FAILHARD,
+            at = @At(value = "HEAD"),
             cancellable = true)
-    private static void interceptScreenshot(File gameDirectory, @Nullable String fileName, Framebuffer framebuffer, Consumer<Text> messageReceiver, CallbackInfo ci, NativeImage nativeImage, File file) {
+    private static void interceptScreenshot(File gameDirectory, @Nullable String fileName, Framebuffer framebuffer, Consumer<Text> messageReceiver, CallbackInfo ci) {
+        NativeImage image = ScreenshotRecorder.takeScreenshot(framebuffer);
+        Screenshot screenshot = new Screenshot(image);
+        ScreenshotOptionsMod.handleScreenshot(screenshot);
         ci.cancel();
     }
 }

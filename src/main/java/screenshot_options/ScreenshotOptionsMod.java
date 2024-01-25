@@ -12,4 +12,8 @@ public class ScreenshotOptionsMod {
         System.setProperty("java.awt.headless", "false");
         Translations.loadAllTranslations();
     }
+    
+    public static void handleScreenshot(Screenshot screenshot) {
+    
+    }
 }

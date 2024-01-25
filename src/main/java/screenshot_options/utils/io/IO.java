@@ -1,14 +1,8 @@
 package screenshot_options.utils.io;
 
-import com.mojang.blaze3d.texture.NativeImage;
-import screenshot_options.utils.TransferableImage;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.Transferable;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -42,58 +36,7 @@ public class IO {
         return true;
     }
     
-    public static void saveNativeImage(NativeImage image, Path destination) {
-        try (image) {
-            image.writeFile(destination);
-        } catch (Exception e) {
-            LOGGER.error("An error occurred while trying to save the image.", e);
-        }
-    }
-    
-    public static boolean rename(Path target, Path destination) {
-        try {
-            Files.move(target, destination);
-            return true;
-        } catch (Exception e) {
-            LOGGER.error("An error occurred while renaming the file.", e);
-            return false;
-        }
-    }
-    
-    public static boolean copyImageToClipboard(Path source) {
-        if (isHeadless) return false;
-        
-        BufferedImage image = readImageFrom(source);
-        if (image == null) return false;
-        
-        copyImageToClipboard(image);
-        return true;
-    }
-    
-    public static boolean delete(Path target) {
-        try {
-            Files.delete(target);
-            return true;
-        } catch (IOException e) {
-            LOGGER.error("An IO exception occurred while trying to delete the file at " + target, e);
-            return false;
-        }
-    }
-    
-    private static BufferedImage readImageFrom(Path path) {
-        try {
-            return ImageIO.read(Files.newInputStream(path));
-        } catch (Exception e) {
-            LOGGER.error("An error occurred trying to read the image at " + path, e);
-            return null;
-        }
-    }
-    
-    private static void copyImageToClipboard(BufferedImage image) {
-        copyToClipboard(new TransferableImage(image));
-    }
-    
-    private static void copyToClipboard(Transferable object) {
+    public static void copyToClipboard(Transferable object) {
         clipboard.setContents(object, null);
     }
 }

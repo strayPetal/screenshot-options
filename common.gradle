@@ -1,7 +1,7 @@
 apply plugin: 'maven-publish'
 apply plugin: 'fabric-loom'
 apply plugin: 'com.replaymod.preprocess'
-apply plugin: 'me.fallenbreath.yamlang'
+//apply plugin: 'me.fallenbreath.yamlang'
 
 preprocess {
     tabIndentation = true
@@ -57,7 +57,6 @@ processResources {
     inputs.property "version", version
     inputs.property "description", project.mod_description
     inputs.property "author", project.mod_author
-    inputs.property "minecraft_dependency", project.minecraft_dependency
 
     filesMatching("fabric.mod.json") {
         def valueMap = [
@@ -66,7 +65,6 @@ processResources {
                 "version": version,
                 "description": project.mod_description,
                 "author": project.mod_author,
-                "minecraft_dependency": project.minecraft_dependency
         ]
         expand valueMap
     }
@@ -76,11 +74,11 @@ processResources {
     }
 }
 
-// https://github.com/Fallen-Breath/yamlang
-yamlang {
-    targetSourceSets = [sourceSets.main]
-    inputDir = LANG_DIR
-}
+//// https://github.com/Fallen-Breath/yamlang
+//yamlang {
+//    targetSourceSets = [sourceSets.main]
+//    inputDir = LANG_DIR
+//}
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is
 // this fixes some edge cases with special characters not displaying correctly
